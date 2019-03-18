@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>Push info to SQL</title>
+    </head>
+    <body>
+        <h1>MegaDesk test</h1>
+
+        <form action="createTicket.php" method="post" id="ticketEntryForm">
+        <p><strong>Create a ticket</strong><br>
+        </p>
+        <p>Who is this ticket assigned to?
+        <select name="assignedTo">
+        <option disabled selected value> -- select a tech -- </option>
+        <option value="Ivan">Ivan Robledo</option>
+        <option value="Max">Max Rainey</option>
+        <option value="Johnny">Johnny Tran</option>
+        <option value="Kimberly">Kimberly Cole</option>
+        </select>
+        </p>
+        <p>Who is this ticket for?
+        <input name="customer" type="text" size="50"></p>
+        <p>What Campus?
+        <select name="campus">
+        <option disabled selected value> -- select a campus -- </option>
+        <option value="CHS">CHS</option>
+        <option value="KOL">Kolarik</option>
+        <option value="AJO">Alice Johnson</option>
+        <option value="AAG">Aguirr Jr. High</option>
+        <option value="JFC">JFC at Endeavor</option>
+        </select>
+        </p>
+        <p>Room Number?
+        <input name="room" type="text" size="10"></p>
+        <p>Extension?
+        <input name="extension" type="text" size="10"></p>
+        <p>Description
+        <textarea name="description" rows="5" cols="50"></textarea>
+        </p>
+        <p>Ticket Status?
+        <select name="ticketStatus">
+        <option disabled selected value> -- select a status -- </option>
+        <option value="new">New Ticket</option>
+        <option value="ip">In Progress</option>
+        <option value="ofr">Out For Repair</option>
+        <option value="complete">Completed</option>
+        </select>
+        </p>
+        <p>
+            <input type="submit" name="submit" value="Create Ticket">
+        </p>
+    </body>
+</html>
