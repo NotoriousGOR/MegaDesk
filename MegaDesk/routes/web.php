@@ -29,10 +29,6 @@ Route::group(['middleware' => ['auth']], function() {
     '/search/', 'PagesController@Search'
     );
 
-    Route::get(
-    '/callcenter/', 'PagesController@CallCenter'
-    );
-
     Route::get('/home', 'PagesController@index')->name('home');
 
     Route::get('/admin-settings/', 'PagesController@adminSettings');

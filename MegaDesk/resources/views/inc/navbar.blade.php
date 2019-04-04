@@ -5,7 +5,7 @@
  * Created Date: Thursday, January 10th 2019, 12:33:08 pm
  * Author: Gabriel Rosales
  * -----
- * Date Modified: 02/21/2019, 3:14:05
+ * Date Modified: 04/01/2019, 8:08:42
  * Modified By: Gabriel Rosales
  * -----
  * Copyright (c) 2019 Avuncular Digital
@@ -116,12 +116,6 @@
                     @cannot('technician', auth()->user())
                     <li class="header-menu">
                             <span>Privileges</span>
-                    </li>
-                    <li>
-                        <a href="/callcenter/">
-                            <i class="fas fa-phone-square"></i>
-                            <span>Call Center</span>
-                        </a>
                     </li>
                     @endcannot
                 @endauth

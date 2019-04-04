@@ -5,7 +5,7 @@
  * Created Date: Wednesday, December 5th 2018, 9:06:37 am
  * Author: Gabriel Rosales
  * -----
- * Date Modified: 03/01/2019, 1:25:03
+ * Date Modified: 04/04/2019, 11:06:57
  * Modified By: Gabriel Rosales
  * -----
  * Copyright (c) 2018 Avuncular Digital
@@ -64,7 +64,7 @@ class PagesController extends Controller
     // Dashboard Page
     public function index()
     {
-        if(Gate::denies('administrator')) {
+        if (Gate::denies('administrator')) {
             $userID =  Auth::user()->id;
             $user = User::find($userID);
 
@@ -75,7 +75,7 @@ class PagesController extends Controller
             $campusNames = array();
             $ticketAgeArray = array();
 
-            foreach($campuses as $campus) {
+            foreach ($campuses as $campus) {
                 // adding campus name to array
                 $campusNames[] = $campus->CampusName;
 
@@ -88,14 +88,14 @@ class PagesController extends Controller
 
             return view('home')->with([
                 'user' => $user,
-                'campuses'=>$campuses,
-                'tickets'=>$tickets,
+                'campuses' => $campuses,
+                'tickets' => $tickets,
                 'avgArray' => $avgArray,
-                'campusNames' => $campusNames]);
-        }
-        else {
+                'campusNames' => $campusNames
+            ]);
+        } else {
             $businessDay = new BusinessDays();
-            $users = User::orderBy('name','asc')->get();
+            $users = User::orderBy('name', 'asc')->get();
             $count = 0;
             $dates = array();
             $today = Carbon::now();
@@ -105,14 +105,13 @@ class PagesController extends Controller
 
             foreach ($period as $date) {
 
-                if($businessDay->isOpenedDay($date) == true && !$businessDay->isHoliday($date) && !$businessDay->isClosed($date)) {
-                    $closedTickets[] = Ticket::where('TicketStatus','Completed')->whereDate('created_at', $date)->count();
+                if ($businessDay->isOpenedDay($date) == true && !$businessDay->isHoliday($date) && !$businessDay->isClosed($date)) {
+                    $closedTickets[] = Ticket::where('TicketStatus', 'Completed')->whereDate('created_at', $date)->count();
 
-                    $createdTickets[] = Ticket::where('TicketStatus','New Issue')->whereDate('created_at', $date)->count();
+                    $createdTickets[] = Ticket::where('TicketStatus', 'New Issue')->whereDate('created_at', $date)->count();
 
                     $dates[] = $date->format('m/d/Y');
                 }
-
             }
 
             return view('Pages.Admin')->with([
@@ -127,15 +126,17 @@ class PagesController extends Controller
 
 
     // Reports Page
-    public function Reports() {
+    public function Reports()
+    {
         return view('Pages.Reports');
     }
     // Search Page
-    public function Search(Request $request, Ticket $ticket) {
+    public function Search(Request $request, Ticket $ticket)
+    {
 
         $results = array();
 
-        if(!empty($request->all())) {
+        if (!empty($request->all())) {
             $q = $ticket->newQuery();
 
             $request->validate([
@@ -203,13 +204,35 @@ class PagesController extends Controller
         ]);
     }
 
-    // CallCenter page
-    public function CallCenter() {
-        return view('Pages.CallCenter');
-    }
+    public function adminSettings()
+    {
+        // $curl = curl_init();
 
-    public function adminSettings() {
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://www.googleapis.com/calendar/v3/calendars/cvisd.org_q693uev76rt0blkdjmo11vkc5k@group.calendar.google.com/events?key=AIzaSyAh6QSHCt2vJiEV-HdyDcc4BN0n5r2HBYE",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "GET"
+        // ));
+
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
+        // curl_close($curl);
+        // $response = json_decode($response, true);
+        // dd($response);
+        // foreach ($response as $res) {
+        //     if (gettype($res) === gettype([]) && array_last($res)) {
+        //         foreach ($res as $item) {
+        //             foreach ($item as $i) {
+        //                 if (strpos($i->summary, "Holiday") &&  $i->summary !== "Student Holiday") {
+        //                     dd($i);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // dd($response);
         return view('admin.settings');
     }
-
 }
